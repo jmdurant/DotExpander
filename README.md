@@ -1,261 +1,89 @@
-# quill-table-better
-A module that enhances the table functionality of [Quill](https://quilljs.com/).
+# DotExpander
 
-## Compare the advantages of other table plugins
-1. Supports multiple formats (include list).
-2. Supports simultaneous operations on multiple cells.
-3. Undo/History not break table.
-4. Support language switching.
-5. The toolbar provides button for inserting table.
+DotExpander is a powerful Chrome extension that enhances your typing efficiency through customizable text expansion, rich text snippets, and dynamic macros.
 
-## Demo
-[quill-table-better Codepen Demo](https://codepen.io/attoae/pen/WNBGjZp)
+## Key Features
 
-## Dependencies
-[quill.js](https://quilljs.com/) `>= v2.0.0`
+### 📝 Text Snippets
+- Create and manage text snippets with custom abbreviations
+- Case-insensitive snippet names (e.g., "brb", "BRB", "bRb" all work)
+- Organize snippets in folders for better management
+- Import/Export functionality for backup and sharing
+- Rich text editor support with table functionality
 
-## Quickstart
-> **Note**: `setContents` causes the table to not display properly, replace with `updateContents`.  
-> The method is as follows (`Used when initializing data`): 
+### ⚡ Smart Expansion Methods
+- Hotkey expansion (default: Shift+Space)
+- Dot phrases: Type "." followed by snippet name (optional feature)
+- Context menu integration
 
-```JavaScript
-const delta = quill.clipboard.convert({ html });
-const [range] = quill.selection.getRange();
-quill.updateContents(delta, Quill.sources.USER);
-quill.setSelection(
-  delta.length() - (range?.length || 0),
-  Quill.sources.SILENT
-);
-quill.scrollIntoView();
-```
+### 🔄 Dynamic Content
+- **Placeholders**: Insert dynamic values with `%text%` format
+- **Date/Time Macros**: Insert current date/time with various formats
+- **Math Calculations**: Perform calculations inline with `[[expression=]]`
+- **Clipboard Integration**: Paste clipboard content using `[[%p]]`
+- **Browser URL Macros**: Insert current webpage URL or its components
+- **Snippet Embedding**: Include one snippet inside another
 
-npm
-```JavaScript
-import QuillTableBetter from 'quill-table-better';
-import 'quill-table-better/dist/quill-table-better.css'
+### 💾 Storage & Sync
+- Multiple storage modes for your data
+- Cross-device synchronization through Chrome sync
+- Automatic backup and revision history
+- CSV import/export support
 
-Quill.register({
-  'modules/table-better': QuillTableBetter
-}, true);
+### 🎨 Customization
+- Configurable hotkeys
+- Auto-insert character pairs
+- Custom snippet delimiters
+- Dark mode support
+- Site blocking for incompatible websites
 
-const toolbarOptions = [
-  ['bold', 'italic', 'underline', 'strike'],
-  ['table-better']
-];
+### 🛠️ Advanced Features
+- Date/Time arithmetic for complex date calculations
+- Rich text HTML support
+- System variable integration
+- Comprehensive search functionality
 
-const options = {
-  theme: 'snow',
-  modules: {
-    table: false,
-    toolbar: toolbarOptions,
-    'table-better': {
-      language: 'en_US',
-      menus: ['column', 'row', 'merge', 'table', 'cell', 'wrap', 'delete'],
-      toolbarTable: true
-    },
-    keyboard: {
-      bindings: QuillTableBetter.keyboardBindings
-    }
-  }
-};
+## Installation
 
-const quill = new Quill('#root', options);
-```
+Install DotExpander from the [Chrome Web Store](https://chrome.google.com/webstore/detail/dotexpander/ekfnbpgmmeahnnlpjibofkobpdkifapn)
 
-cdn
-```html
-<link href="https://cdn.jsdelivr.net/npm/quill@2/dist/quill.snow.css" rel="stylesheet" />
-<link href="https://cdn.jsdelivr.net/npm/quill-table-better@1/dist/quill-table-better.css" rel="stylesheet" />
-<script src="https://cdn.jsdelivr.net/npm/quill@2/dist/quill.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/quill-table-better@1/dist/quill-table-better.js"></script>
+## Usage Examples
 
-<div id="root"></div>
-<script>
-  Quill.register({
-    'modules/table-better': QuillTableBetter
-  }, true);
+1. **Basic Snippet**:
+   - Create a snippet with name "brb"
+   - Set its content to "be right back"
+   - Type "brb" and press Shift+Space to expand
 
-  const toolbarOptions = [
-    ['bold', 'italic', 'underline', 'strike'],
-    ['table-better']
-  ];
+2. **Dynamic Placeholder**:
+   - Create a snippet "wishBDay" with content "Happy Birthday %name%!"
+   - When used, %name% will be highlighted for you to type the person's name
 
-  const options = {
-    theme: 'snow',
-    modules: {
-      table: false,
-      toolbar: toolbarOptions,
-      'table-better': {
-        language: 'en_US',
-        menus: ['column', 'row', 'merge', 'table', 'cell', 'wrap', 'delete'],
-        toolbarTable: true
-      },
-      keyboard: {
-        bindings: QuillTableBetter.keyboardBindings
-      }
-    }
-  };
-  const quill = new Quill('#root', options);
-</script>
-```
+3. **Date Macro**:
+   - Use `[[%d(YYYY-MM-DD)]]` in a snippet to insert current date
+   - Supports various formats and arithmetic (e.g., `[[%d(D+5)]]` for 5 days ahead)
 
-## Conifg
+4. **Math Calculations**:
+   - Type `[[5^3=]]` to calculate 5 cubed
+   - Supports basic operations (+, -, *, /, ^) and parentheses
 
-### language
-The `language` parameter has two types:  
-1. string, default `en_US`
+## Support
 
-| Language | Code |
-| ---- | ---- |
-| Chinese | zh_CN |
-| English | en_US |
-| French | fr_FR |
-| Polish | pl_PL |
-| German | de_DE |
+For issues, feature requests, or general feedback:
+- Email: james@doctordurant.com
+- [Submit a Review](https://chrome.google.com/webstore/detail/dotexpander/ekfnbpgmmeahnnlpjibofkobpdkifapn/reviews)
+- [Report Issues](https://chrome.google.com/webstore/detail/dotexpander/ekfnbpgmmeahnnlpjibofkobpdkifapn/support)
 
-2. Used to register a new language, such as:  
-  { name: `'en_UK'`, content: [en_US](https://github.com/attoae/quill-table-better/blob/develop/src/language/en_US.ts) } (For content, please refer to [en_US](https://github.com/attoae/quill-table-better/blob/develop/src/language/en_US.ts))
+## Attribution
 
-### menus
-`menus` are used to configure the action bar, and those not in the array are not displayed.  
-Empty array or no configuration default all display.  
-The functions of the operation bar are as follows:
-1. column
-  - Insert column left
-  - Insert column right
-  - Delete column
-2. row
-  - Insert row above
-  - Insert row below
-  - Delete row
-3. merge
-  - Merge cells
-  - Split cell
-4. table
-  - Table properties
-5. cell
-  - Cell properties
-6. wrap (Insert paragraph outside the table)
-  - Insert before
-  - Insert after
-7. delete
-  - Delete table
+DotExpander is based on ProKeys by Gaurang Tandon, modified and enhanced by DoctorDuRant LLC with permission. Enhancements include:
+- Updated to Manifest V3 compatibility
+- Enhanced rich text editor support
+- Improved storage management
+- Modern UI/UX improvements
 
-### toolbarTable
-`toolbarTable` is used to add a button to insert a table on the toolbar (true or false).  
-And `table-better` needs to be added to toolbarOptions, for example:
- 
-```JavaScript
-const toolbarOptions = [
-  ['bold', 'italic', 'underline', 'strike'],
-  ['table-better']
-];
-```
+## License
 
-### toolbarButtons
-`toolbarButtons` is used when focusing on the table, you can specify which buttons to disable and which not.
+ISC License - See LICENSE.md for details
 
-`whiteList` supports simultaneous operations on multiple cells, default `WHITE_LIST`. 
-> **Note**: The configured `whiteList` is preferably a subset of `WHITE_LIST`, other formats may have problems.
-
-`singleWhiteList` only supports formatting for a single cell, default `SINGLE_WHITE_LIST`.  
-> **Note**: `singleWhiteList` must be a subset of `whiteList`.
-
-```JavaScript
-toolbarButtons: {
-  whiteList: ['link', 'image'],
-  singleWhiteList: ['link', 'image']
-};
-```
-
-```JavaScript
-'table-better': {
-  language: 'en_US',
-  menus: ['column', 'row', 'merge', 'table', 'cell', 'wrap', 'delete'],
-  toolbarButtons: {
-    whiteList: ['link', 'image'],
-    singleWhiteList: ['link', 'image']
-  },
-  toolbarTable: true
-}
-```
-
-## Formats supported by table
-The table supports the following formats and supports simultaneous operations on multiple cells：
-
-```JavaScript
-const WHITE_LIST = [
-  'bold',
-  'italic',
-  'underline',
-  'strike',
-  'size',
-  'color',
-  'background',
-  'font',
-  'list',
-  'header',
-  'align',
-  'link',
-  'image'
-];
-```
-
-Only supports formatting for a single cell.
-
-```JavaScript
-const SINGLE_WHITE_LIST = ['link', 'image'];
-```
-
-## Key combination
-
-- delete cells and their contents (`Ctrl + Backspace` or `Ctrl + Delete`)  
-When all cells in a row or column are selected, you can use key combinations to delete cells and their contents.
-
-## Methods
-
-```JavaScript
-const module = quill.getModule('table-better');
-```
-### deleteTable
-
-```JavaScript
-module.deleteTable();
-```
-### deleteTableTemporary、hideTools
-When you need to submit data(html or delta) to the server, you should use this function, for example：
-
-```JavaScript
-// Delta
-module.hideTools();
-const delta = quill.getContents();
-axios.post(url, delta);
-```
-
-```JavaScript
-// HTML
-module.deleteTableTemporary();
-const html = quill.getSemanticHTML();
-axios.post(url, html);
-```
-### getTable(range = this.quill.getSelection())
-Function return `[table, row, cell, offset]`
-
-```JavaScript
-module.getTable();
-```
-### insertTable(rows: number, columns: number)
-```JavaScript
-module.insertTable(3, 3);
-```
-
-## Download
-```JavaScript
-npm i quill-table-better
-```
-
-### CDN
-```html
-<link href="https://cdn.jsdelivr.net/npm/quill-table-better@1/dist/quill-table-better.css" rel="stylesheet"/>
-<script src="https://cdn.jsdelivr.net/npm/quill-table-better@1/dist/quill-table-better.js"></script>
-```
+---
+© 2025 James M DuRant III MD MBA | [GitHub Repository](https://github.com/jmdurant/dotexpander)
