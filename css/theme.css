@@ -1,0 +1,287 @@
+/* Theme variables */
+:root {
+    /* Light theme colors */
+    --primary-color: #4B9CD3;
+    --primary-hover: #3D7DAB;
+    --secondary-color: #75B6E6;
+    --background-color: #fefefe;
+    --content-background: white;
+    --text-color: #333;
+    --text-muted: #666;
+    --border-color: #ccc;
+    --link-color: #1143bb;
+    --code-background: #f0f0f0;
+    --table-header-background: #f3f3f3;
+    --table-border: #ccc;
+    --box-border: #4B9CD3;
+    --panel-gradient-start: rgba(250, 250, 255, 1);
+    --panel-gradient-end: rgba(222, 223, 224, 1);
+    --suggestion-hover: #f0f0f0;
+    --suggestion-border: #eee;
+    --highlight-background: #B8D9F3;
+    --input-background: white;
+    --faded-background: #eee;
+    --box-background: white;
+    --editor-background: white;
+}
+
+/* Dark theme colors */
+.dark-theme {
+    --primary-color: #4B9CD3;
+    --primary-hover: #3D7DAB;
+    --secondary-color: #75B6E6;
+    --background-color: #1a1a1a;
+    --content-background: #2d2d2d;
+    --sidebar-background: #1a1a1a;
+    --panel-background: #2d2d2d;
+    --text-color: #e0e0e0;
+    --text-muted: #a0a0a0;
+    --border-color: #404040;
+    --link-color: #8eb4ff;
+    --code-background: #363636;
+    --table-header-background: #363636;
+    --table-border: #404040;
+    --box-border: #4B9CD3;
+    --panel-gradient-start: rgba(45, 45, 45, 1);
+    --panel-gradient-end: rgba(35, 35, 35, 1);
+    --suggestion-hover: #363636;
+    --suggestion-border: #404040;
+    --highlight-background: #1E3F54;
+    --input-background: #2d2d2d;
+    --faded-background: #222;
+    --box-background: #2d2d2d;
+    --editor-background: #2d2d2d;
+}
+
+/* Apply variables to existing elements */
+body {
+    background-color: var(--background-color);
+    color: var(--text-color);
+}
+
+#content > div {
+    background-color: var(--panel-background);
+}
+
+.sidebar {
+    background-color: var(--sidebar-background);
+    border-right: 1px solid var(--border-color);
+}
+
+button,
+.buttons a {
+    background-color: var(--primary-color);
+    color: var(--content-background);
+}
+
+button:hover,
+.buttons a:hover {
+    background-color: var(--primary-hover);
+}
+
+.sidebar .buttons button.selected {
+    background-color: var(--secondary-color);
+}
+
+a,
+.fake-anchor {
+    color: var(--link-color);
+}
+
+.box {
+    border-color: var(--box-border);
+    background-color: var(--box-background);
+}
+
+pre {
+    background-color: var(--code-background);
+}
+
+table td,
+table th {
+    border-color: var(--table-border);
+}
+
+.panel_top {
+    background: linear-gradient(to bottom, var(--panel-gradient-start) 0%, var(--panel-gradient-end) 100%);
+}
+
+.prokeys-suggestions {
+    background-color: var(--content-background);
+    border-color: var(--border-color);
+}
+
+.prokeys-suggestion-item {
+    border-bottom-color: var(--suggestion-border);
+}
+
+.prokeys-suggestion-item:hover,
+.prokeys-suggestion-item.selected {
+    background-color: var(--suggestion-hover);
+}
+
+.prokeys-suggestion-shortcut {
+    color: var(--text-muted);
+}
+
+.generic.highlighting {
+    background-color: var(--highlight-background);
+}
+
+/* Additional dark theme elements */
+input[type="text"],
+input[type="search"],
+textarea,
+select {
+    background-color: var(--input-background);
+    color: var(--text-color);
+    border-color: var(--border-color);
+}
+
+#faded {
+    background-color: var(--faded-background);
+}
+
+.logo {
+    background-color: var(--sidebar-background);
+}
+
+.ql-editor {
+    background-color: var(--editor-background);
+    color: var(--text-color);
+}
+
+.ql-toolbar {
+    background-color: var(--background-color);
+    border-color: var(--border-color);
+}
+
+.ql-toolbar button {
+    color: var(--text-color);
+}
+
+.ql-toolbar button:hover {
+    color: var(--primary-color);
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar {
+    width: 12px;
+    height: 12px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--background-color);
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: var(--border-color);
+    border-radius: 6px;
+    border: 3px solid var(--background-color);
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background-color: var(--text-muted);
+}
+
+/* Panel and popup backgrounds */
+.panel,
+.panel_popup {
+    background-color: var(--content-background);
+}
+
+.selectList p:hover {
+    background-color: var(--suggestion-hover);
+}
+
+.selectList p.selected {
+    background-color: var(--suggestion-hover);
+}
+
+/* Table styles */
+.ql-editor table {
+    background-color: var(--content-background);
+}
+
+.ql-editor table td,
+.ql-editor table th {
+    border-color: var(--table-border);
+}
+
+.ql-editor table th {
+    background-color: var(--table-header-background);
+}
+
+/* Code blocks and syntax highlighting */
+.code {
+    background-color: var(--code-background);
+    color: var(--text-color);
+}
+
+/* Dialog and modal backgrounds */
+.prokeys-block .block-content {
+    background-color: var(--content-background);
+    color: var(--text-color);
+}
+
+.prokeys-block .block-overlay {
+    background-color: rgba(0, 0, 0, 0.6);
+}
+
+/* Dark theme overrides - using more specific selectors */
+.dark-theme body {
+    background-color: var(--background-color) !important;
+}
+
+.dark-theme #content > div {
+    background-color: var(--panel-background) !important;
+}
+
+.dark-theme .sidebar {
+    background-color: var(--sidebar-background) !important;
+}
+
+.dark-theme #faded {
+    background-color: var(--faded-background) !important;
+}
+
+.dark-theme .logo {
+    background-color: var(--sidebar-background) !important;
+}
+
+/* Add styles for toolbar tabs */
+.dualBoxContainer .nav {
+    background-color: var(--background-color);
+    border-bottom: 1px solid var(--border-color);
+}
+
+.dualBoxContainer .nav p {
+    color: var(--text-color);
+}
+
+.dualBoxContainer .nav .show {
+    background-color: var(--content-background);
+    border: 1px solid var(--border-color);
+    border-bottom: none;
+    position: relative;
+    top: 1px;
+}
+
+/* Dark theme specific overrides */
+.dark-theme .dualBoxContainer .nav {
+    background-color: var(--background-color);
+}
+
+.dark-theme .dualBoxContainer .nav p {
+    color: var(--text-muted);
+}
+
+.dark-theme .dualBoxContainer .nav p:hover {
+    color: var(--text-color);
+}
+
+.dark-theme .dualBoxContainer .nav .show {
+    background-color: var(--content-background);
+    color: var(--primary-color);
+    font-weight: bold;
+} 

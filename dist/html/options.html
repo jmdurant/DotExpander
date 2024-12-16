@@ -1,0 +1,1094 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+        <script src="../js/page-flags.js"></script>
+        <meta charset="utf-8">
+	<link href="../css/reset.css" rel="stylesheet">
+	<link href="../css/theme.css" rel="stylesheet">
+	<link href="../css/options.css" rel="stylesheet">
+	<link href="../css/editor.min.css" rel="stylesheet">
+	<link href="../css/quill.snow.css" rel="stylesheet">
+	<link href="../css/quill-table-better.css" rel="stylesheet">
+	<link href="../css/custom.css" rel="stylesheet">
+	<script src="../js/quill.js"></script>
+	<script src="../js/quill-table-better.js"></script>
+	<script src="../js/detector.js"></script>
+	<script src="../js/options.js"></script>
+	<meta name="viewport" content="width=device-width,initial-scale=1">
+</head>
+<body>
+  	<div class="sidebar">
+  		<div class="logo">
+  			<a target="_blank" href="https://chrome.google.com/webstore/detail/dotexpander/ekfnbpgmmeahnnlpjibofkobpdkifapn">
+  			</a>
+  		</div>
+  		<div class="buttons">
+  			
+  			<button data-divid="snippets">Snippets</button>
+  			<button data-divid="settings">Settings</button>
+  			<button data-divid="help">Help</button>
+  			<button data-divid="about">About</button>
+  		</div>
+  	</div>
+  
+  	<main class="wrapper">
+  		<div class="verticalLine"></div>
+  
+  		<div id="faded"></div>
+  
+  		<div class="change-log box large-box">
+  			<p class="heading">DotExpander v<span class="version"></span>
+  				<span>Changelog</span>
+  			</p>
+  			<div class="content">
+  				
+  				
+  				<h2>&#x25cf; New in v1.0</h2>
+  				<ul>
+  					<li><b>The hotkey mechanism was changed internally.</b> If your hotkey stopped working after this
+  						update, please set it again and it should work. Please email if it doesn't.</li>
+  				</ul>
+  				<h2>&#x25cf; New features</h2>
+  				<ul>
+  					<li>DotExpander now works properly on Slack, WhatsApp, and other such websites.
+  						If you notice a website that behaves weirdly, please block it in the settings
+  						for the while, and let me know through email, so I can work on a fix.</li>
+  					<li>Now you can export snippets to and from a CSV file!</li>
+  				</ul>
+  				
+  				<h2>&#x25cf; Functional changes</h2>
+  				<ul>
+  					<li>The extension no longer pops up automatically on every update. Instead, it displays a "NEW"
+  						badge on the extension icon.</li>
+  				</ul>
+  				
+  			</div>
+  			
+  			<div class="appeal">
+  				<p>Please support free software! We really appreciate it! :-D</p>
+  				<div class="btn-group buttons">
+  					<button>Close</button>
+  					
+  					<a target="_blank" href="https://chrome.google.com/webstore/detail/dotexpander/ekfnbpgmmeahnnlpjibofkobpdkifapn/reviews">Leave
+  						a review!</a>
+  					<a target="_blank" href="https://paypal.me/jamesmdurant">Donate money!</a>
+  				</div>
+  			</div>
+  		</div>
+  
+  		<div class="no-db-error box large-box">
+  			<p class="heading">Oops, there's an error!</p>
+  			<div class="content">
+  				<h2>&#x25cf; Details</h2>
+  				<ul>
+  					<li>Apologies for the issue, but we couldn't find your data where it is supposed to be present.</li>
+  					<li>This is usually caused by miconfigured sync or some other really specific problems.</li>
+  					<li>Do not worry though, we store your data safely in two places so that, even if you don't have a
+  						backup, chances of your losing your data are almost nil.</li>
+  				</ul>
+  				<h2>&#x25cf; Restore data</h2>
+  				<ul>
+  					<li>We found some data in these locations, and have thus saved it as a text file which you can
+  						download.
+  						<a class="local-found"></a> OR <a class="sync-found"></a> OR <a class="localstorage-found"></a>
+  					</li>
+  					<li>Now you may upload a backup file, from above or your own previously saved copy here, and we will
+  						load it for you.
+  						<input type="file" name="no-db-error-restore" id="no-db-error-restore">
+  					</li>
+  					<li>If all the above options are unhelpful, please contact us at james@doctordurant.com for
+  						further assisstance.</li>
+  				</ul>
+  
+  			</div>
+  			<div class="appeal">
+  				<div class="btn-group buttons">
+  					<button>Close</button>
+  				</div>
+  			</div>
+  		</div>
+  
+  		<div id="content">
+  			<div id="snippets">
+  				<h1>Snippets</h1>
+  				<p class="storageBytes">
+  					<span class="currentBytes"></span> used out of 
+  					<span class="bytesAvailable"></span> total storage
+  				</p>
+  
+  				<div class="export-buttons">
+  					<button class="export">Export/Backup</button>
+  					<button class="import">Import/Restore</button>
+  					<button class="revisions">Past data versions</button>
+  				</div>
+  
+  				<div class="panel panel_snippets show">
+  					<div class="panel_top">
+  						<div class="folder_path">
+  							
+  						</div>
+  						<div class="add_new_snip_btn panel_btn" title="Add new snippet"></div>
+  						<div class="add_new_folder_btn panel_btn" title="Add new folder"></div>
+  						<div class="sort_btn panel_btn" title="Sort snippets"></div>
+  						<div class="checkbox_btn panel_btn" title="Perform bulk action"></div>
+  						<div class="search_btn panel_btn" title="Search snippets and folders"></div>
+  					</div>
+  					<div class="panel_search sub_panel">
+  						<input type="text" placeholder="Type search phrase">
+  					</div>
+  					<div class="panel_sort sub_panel">
+  						<div class="sort-dir">
+  							Sort direction:
+  							<label>
+  								<input type="radio" name="sort-dir" checked="checked">Ascending</label>
+  							<label>
+  								<input type="radio" name="sort-dir">Descending</label>
+  						</div>
+  						<div class="sort-type">
+  							Sort by:
+  							<label>
+  								<input type="radio" name="sort-type" checked="checked">Name</label>
+  							<label>
+  								<input type="radio" name="sort-type">Date created</label>
+  						</div>
+  						<input type="button" value="Sort">
+  					</div>
+  					<div class="panel_bulk_action sub_panel">
+  						<div class="selection_count">
+  							Bulk Actions:
+  							<span></span> selected
+  							<input type="button" value="Select/Unselect all">
+  						</div>
+  						<div class="bulk_actions">
+  							<input type="button" value="Move to folder">
+  							<input type="button" value="Delete selected">
+  						</div>
+  						<div class="folderSelect">
+  							<p>Select a folder and click "Move to folder" button again</p>
+  							<div class="selectList">
+  
+  							</div>
+  						</div>
+  					</div>
+  					<div class="panel_content">
+  						
+  					</div>
+  				</div>
+  
+  				<div class="panel edit-panel panel_snip_edit">
+  					<div class="panel_top">
+  						<div class="header">
+  							<span></span>
+  						</div>
+  						<div class="tick_btn panel_btn" title="Save snippet (Ctrl-Enter)"></div>
+  						<div class="close_btn panel_btn" title="Close dialog (Esc)"></div>
+  					</div>
+  					<div class="panel_content">
+  						<div class="name">
+  							<p>
+  								<b>Snippet Name:</b> abbreviation</p>
+  							<input type="text" placeholder="Case-insensitive ('ABCD' and 'abcd' same)" tab-index="10">
+  							<p class="error"></p>
+  						</div>
+  						<div class="body">
+  							<p>
+  								<b>Snippet Body:</b> to which snippet name expands
+  								<br>
+  								<br>
+  								</p><div id="body-editor"></div>
+  								<p class="error"></p>
+  						</div>
+  						<div class="folderSelect">
+  							<p>
+  								<b>Nested under/Move to folder:</b>
+  							</p>
+  							<div class="selectList">
+  
+  							</div>
+  						</div>
+  					</div>
+  				</div>
+  
+  				<div class="panel edit-panel panel_folder_edit">
+  					<div class="panel_top">
+  						<div class="header">
+  							<span></span>
+  						</div>
+  						<div class="tick_btn panel_btn" title="Save folder"></div>
+  						<div class="close_btn panel_btn" title="Close dialog"></div>
+  					</div>
+  					<div class="panel_content">
+  						<div class="name">
+  							<p><b>Folder Name</b></p>
+  							<input type="text" placeholder="Case-insensitive ('ABCD' and 'abcd' same)">
+  							<p class="error"></p>
+  						</div>
+  						<div class="folderSelect">
+  							<p><b>Nested under/Move to folder:</b></p>
+  
+  							<div class="selectList">
+  
+  							</div>
+  						</div>
+  					</div>
+  				</div>
+  
+  				<div class="panel panel_popup export">
+  					<div class="panel_top">
+  						<div class="close_btn panel_btn" title="Close popup"></div>
+  					</div>
+  					<div class="panel_content">
+  						<ol class="steps">
+  							<li>
+  								Choose use of exported data:
+  								<br>
+  								<label>
+  									<input type="radio" name="data_use" value="data" checked="checked">Backup data</label>
+  								<label>
+  									<input type="radio" name="data_use" value="snippets">Backup only snippets</label>
+  								<label>
+  									<input type="radio" name="data_use" value="print">Print snippets</label>
+  							</li>
+  							<li>
+  								Download your data as a <a href="" download="" class="text-download">text file</a>, <a href="" download="" class="csv-download">your snippets as a csv</a> or, <br><br>
+  								<span class="copy-data-to-clipboard-btn fake-anchor">Copy your data to clipboard.
+  							</span></li>
+  						</ol>
+  					</div>
+  				</div>
+  
+  				<div class="panel panel_popup import">
+  					<div class="panel_top">
+  						<div class="close_btn panel_btn" title="Close popup"></div>
+  					</div>
+  					<div class="panel_content">
+  						<ol class="steps">
+  							<li>
+  								Select folder under which new snippets will be imported:
+  								<br>
+  								<div class="selectList">
+  								</div>
+  								<label>
+  									<input type="checkbox" class="delete_existing">Delete existing snippets and folders
+  									in selected folder?</label>
+  								<br>
+  							</li>
+  							<li class="preserve_checkboxes">
+  								<label>
+  									<input type="checkbox" name="merge">Merge folders with the same name?</label>
+  								<br>
+  								<br> Duplicates should:
+  								<br>
+  								<label>
+  									<input type="radio" name="duplicate" value="existing">Not be imported</label>
+  								<br>
+  								<label>
+  									<input type="radio" name="duplicate" value="imported">Replace complement in
+  									destination.</label>
+  								<br>
+  								<label>
+  									<input type="radio" name="duplicate" checked="checked" value="both">Be kept</label>
+  								<br>
+  								<br>
+  
+  								<p class="caveat"></p>
+  							</li>
+  							<li>
+  								
+  								<label for="file_input_elm" class="file_input"></label>
+  								<input id="file_input_elm" type="file" accept=".txt, .doc, .docx, .rtf">
+  								or, <span class="import-data-clipboard-btn fake-anchor">just press Ctrl-V to paste data
+  									from your clipboard.</span>
+  							</li>
+  							<li>
+  								<label><input type="checkbox" class="csv-check-import">This is a CSV snippets
+  									import</label>
+  							</li>
+  						</ol>
+  						<button class="restore">Restore</button>
+  					</div>
+  				</div>
+  
+  				<div class="panel panel_popup revisions">
+  					<div class="panel_top">
+  						<div class="close_btn panel_btn" title="Close popup"></div>
+  					</div>
+  					<div class="panel_content">
+  						<p>Restore your data to an earlier version (to recover deleted snippets, etc.)</p>
+  						<ol class="steps">
+  							<li>
+  								Choose available revision:
+  								<br>
+  								<select>
+  
+  								</select>
+  							</li>
+  							<li>
+  								View or edit revision:
+  								<br>
+  								<textarea></textarea>
+  							</li>
+  							<li>
+  								Click Restore button. Current snippet data will be stored as another new revision.
+  							</li>
+  						</ol>
+  						<button class="restore">Restore</button>
+  					</div>
+  				</div>
+  			</div>
+  			<div id="settings">
+  				<h1>Settings</h1>
+  				<div class="box hotkey">
+  					<p class="heading">Current hotkey:
+  						<span class="hotkey_display"></span>
+  					</p>
+  					<div class="content">
+  						<textarea class="hotkey_listener"></textarea>
+  						<button class="change_hotkey">Change hotkey</button>
+  						<p class="info">
+  							Pressing the hotkey immediately expands the snippet present before the cursor. A hotkey can
+  							be composed of any
+  							button on
+  							the keyboard (optionally, in combination with Shift/Ctrl/Alt)
+  						</p>
+  					</div>
+  				</div>
+  
+  				<div class="box storageMode">
+  					<p class="heading">Storage Mode</p>
+  					<div class="content">
+  						<p>Choose how to store your data:</p>
+  						<div class="container">
+  							<div>
+  								<h3>Sync Storage</h3>
+  								<p>Your data will be synced across all your devices where you're signed into Chrome.</p>
+  								<p>Choose one of the following options:</p>
+  								<div class="storageMode">
+  									
+  								</div>
+  							</div>
+  						</div>
+  						<p class="warning">Please take a backup before changing storage mode!</p>
+  					</div>
+  				</div>
+  
+  				<div class="box">
+  					<p class="heading">Auto-Insert character pairs</p>
+  					<div class="content">
+  						On typing one of the letters below (say `(`), its complement (`)`), is automatically inserted
+  						after it, and the
+  						caret (cursor)
+  						in positioned between both of them
+  						<table class="auto_insert"></table>
+  
+  						<br>
+  						<label>
+  							<input type="checkbox" name="wrapSelectionAutoInsert"> Automatically wrap selected text in
+  							the auto-insert
+  							character
+  							pair ("selection" would become "(selection)")</label>
+  					</div>
+  				</div>
+  
+  				<div class="box tabkey">
+  					<div class="content">
+  						<label>
+  							<input type="checkbox" id="tabKey"> Should [Tab] key insert four spaces instead of its
+  							default function?</label>
+  					</div>
+  				</div>
+  
+  				<div class="box ctxEnable">
+  					<div class="content">
+  						<label>
+  							<input type="checkbox" id="ctxEnable"> Enable DotExpander in the context menu?</label>
+  					</div>
+  				</div>
+  
+  				<div class="box dot-phrases">
+  					<div class="content">
+  						<label>
+  							<input type="checkbox" id="dotPhrasesEnabled"> Enable dot phrases?</label>
+  						<p class="info">When enabled, you can type a dot (.) followed by a snippet name to expand it. For example, typing ".table" and pressing space will expand the "table" snippet.</p>
+  					</div>
+  				</div>
+
+  				<div class="box dark-mode">
+  					<p class="heading">Theme Settings</p>
+  					<div class="content">
+  						<label>
+  							<input type="checkbox" id="darkMode"> Enable dark mode</label>
+  						<p class="info">Switch between light and dark color themes for the extension interface.</p>
+  					</div>
+  				</div>
+
+  				<div class="box snippet_match_whole_word">
+  					<div class="content">
+  						<label>
+  							<input type="checkbox"> <b>Snippet Delimiters</b> - Snippet name should match with whole
+  							word instead of a part?
+  							<br> ('pet' snip name should match in 'I have a pet' but not in 'I have a carpet')</label>
+  						<div class="delimiter_list">
+  							<br> Add or remove a delimiter (single character), hit Enter to Save
+  							<br>
+  							<input type="text">
+  							<button>Reset to default list</button>
+  						</div>
+  					</div>
+  				</div>
+  
+  				<div class="box search-provider">
+  					<div class="content">
+  						Enter the search provider for the omnibox, that will be used when you enter a search query. Hit
+  						Enter to save.
+  						<br> Place the word "SEARCH" where the search text will be replaced.
+  						<br>
+  						<input type="text" placeholder="URL">
+  					</div>
+  				</div>
+  
+  
+  				<div class="box blocked-sites">
+  					<p class="heading">Block Sites</p>DotExpander will not work on the following sites:
+  					<br>
+  					<div class="content">
+  						<p>
+  							Add website to block (for example: `xyz.abcd.com`, `xyz.com/path`), each new website should
+  							be separated by a
+  							newline, hit
+  							Ctrl-Enter to Save
+  						</p>
+  						<br>
+  						<textarea placeholder="Enter addresses here"></textarea>
+  					</div>
+  				</div>
+  			</div>
+  			<div id="help">
+  				<h1>Help</h1>
+  
+  				<div class="box">
+  					<h2>FAQ</h2>
+  					<dl>
+  						<dt>Why won't this work in Google Docs?</dt>
+  						<dd>Google Docs by itself is a very powerful rich text editor. It is built in a very complex
+  							manner, which makes
+  							it
+  							difficult for DotExpander to recognize the caret position and perform relevant functions.
+  							Sorry for the trouble!
+  							<br> However, DotExpander does work in the comments section of Google Docs.</dd>
+  						<dt>I deleted a snippet/made changes by mistake! What do I do?</dt>
+  						<dd>Each of your edits/deletions/etc. are saved up carefully and listed in the "Past data
+  							versions" on the
+  							<a target="_blank" href="options.html#snippets">Snippets</a> tab. You can restore your
+  							data from there :-)</dd>
+  						<dt>Synced data does not update in one PC when updating in another.</dt>
+  						<dd> This is because the extension caches the last fetched sync data. To force get new data:
+  							<ol>
+  								<li>Please close all instances of Chrome where you are signed in.</li>
+  								<li>Wait a minute or two.</li>
+  								<li>Reopen the browser and now new snippets should appear.</li>
+  							</ol>
+  						</dd>
+  						<dt>Is it possible to have a snippet expand without a hotkey?</dt>
+  						<dd>Sorry, but given the way DotExpander is built, it is necessary to have a hotkey to execute a
+  							snippet.</dd>
+  						<dt>Why doesn't DotExpander work in email and password fields?</dt>
+  						<dd>Email field doesn't support caret manipulation, so DotExpander can't detect caret movements
+  							there, and hence
+  							can't function. DotExpander is disabled on password fields for obvious privacy reasons.</dd>
+  					</dl>
+  				</div>
+  
+  				<div class="box">
+  					<h2>Info</h2>
+  					<dl>
+  						<dt>What are snippets (snips)?</dt>
+  						<dd>
+  							<p>Snippets are pairs of an abbreviation and a long text. Typing the abbreviation,
+  								pressing the hotkey
+  								(default:
+  								Shift+Space), replaces it with the long text.</p>
+  							<p>
+  								<b>Example:</b> Snippet with snippet name - <span class="notranslate">"brb"</span>.
+  								The snippet name is the abbreviation. It is
+  								<b>case-insensitive</b>, so <span class="notranslate">"brb"</span>, "<span class="notranslate">BRB"</span>, and <span class="notranslate">"bRb"</span> are
+  								all same. Typing "brb" and pressing the hotkey, would
+  								replace
+  								it with the snippet body, which here is "be right back". Snippets can be created in
+  								the popup box.</p>
+  						</dd>
+  
+  						<dt>What are Placeholders?</dt>
+  						<dd>
+  							<p>Placeholders are fields in the snippet body which are populated with dynamic values
+  								provided by you while
+  								using
+  								the snippet.
+  								<br>A placeholder has the format <span class="notranslate">`%text%`</span> such that
+  								the
+  								<b>text can only contain alphabets, digits and the underscore symbol</b>.</p>
+  							<p>
+  								<b>Example:</b> snippet <span class="notranslate">"wishBDay"</span>, which you can
+  								use to wish your friends Happy Birthday! Since the name of
+  								the
+  								friend keeps changing, so you can add a placeholder to the snippet body, as <span class="notranslate">"%name%"</span>(without quotes). It would
+  								be
+  								auto-highlighted whenever you use the snippet and you can type your friend's name
+  								into it.</p>
+  						</dd>
+  
+  						<dt>What is Mathomania?</dt>
+  						<dd>
+  							<p>Often, mathematical calculations require you to leave your current work and use the
+  								calculator. But, using
+  								Mathomania,
+  								you can do calculations within the text editor itself.</p>
+  							<p>
+  								<b>Supported operations</b> are: addition, subtraction, multiplication, division,
+  								exponentiation (like: 2^3;
+  								of
+  								integer constants only), and percentage (using % symbol). You can group expressions
+  								using parentheses too.</p>
+  							<p>
+  								<b>Usage:</b>
+  							</p>
+  							<ol class="steps">
+  								<li>Press square bracket key twice, the other <span class="notranslate">`]]`</span>
+  									pair of braces should auto-complete.</li>
+  								<li>Type the math expression to be evalated inside the braces.</li>
+  								<li>Press `=` (equals) key and the result of evaluation would replace the <span class="notranslate">`[[...=]]`</span>!</li>
+  							</ol>
+  							<a href="#tryit">Try math expressions in the editor</a> (like <span class="notranslate">"[[5^3=]]"</span>)
+  						</dd>
+  
+  						<dt>How to Embed one Snippet inside of another?</dt>
+  						<dd>
+  							<p>Embedding one snippet inside of another allows you to pull the contents of one
+  								snippet into another. This is
+  								extremely
+  								useful when you have a certain text repeated in several snippets. You can declare
+  								that certain text as a
+  								single
+  								separate snippet, and then embed this new snippet inside the other snippets.</p>
+  							<br>
+  							<p>All the placeholders and macros of the embedded snippet work as if they were a part
+  								of the parent snippet.
+  								You
+  								can embed more than one snippet inside a parent snippet, and your embedded snippet
+  								can also contain other
+  								embedding
+  								references.
+  							</p>
+  							<br>
+  							<p>To embed a snippet <span class="notranslate">"snp2"</span> inside another snippet
+  								<span class="notranslate">"snp1"</span>, you would simply type <span class="notranslate">"[[%s(snp2)]]"</span> (without
+  								quotes)
+  								inside the <span class="notranslate">"snp1"</span> snippet's body.</p>
+  						</dd>
+  
+  						<dt>How to Embed HTML in a Snippet?</dt>
+  						<dd>
+  							<p>Embedding HTML in a snippet allows you create HTML elements using DotExpander.</p>
+  							<br>
+  							<p>HTML tags can be entered in the Snippet Textarea (not Styled textbox). When executed
+  								in a rich text area
+  								such as a Gmail compose window, Snippets will be rendered as the HTML elements
+  								corresponding to the tags
+  								entered in the Snippet.
+  							</p>
+  							<br>
+  							<p>To embed an HTML element like a horizontal rule, you would simply type
+  								"&lt;hr&gt;"
+  								inside the snippet's body while in the Textarea tab.</p>
+  						</dd>
+  
+  						<dt>What are Date/Time macros?</dt>
+  						<dd>
+  							<p>Date-Time macros can be used to insert current date and time related data.</p>
+  							<strong>Usage</strong>
+  							<p>They are to be placed inside a snippet body while
+  								<em>
+  									<strong>creating</strong> the snippet</em>.</p>
+  							<ol class="steps">
+  								<li>Place <span class="notranslate">"[[%d()]]"</span> (without quotes) inside the
+  									snippet body.</li>
+  								<li>Place one or more of the symbols inside the parentheses, from the symbol list.
+  								</li>
+  								<li>When you use the snippet, this entire string of <span class="notranslate">`[[%d(...)]]`</span> would be replaced by the current
+  									value of
+  									the
+  									symbols it contains.</li>
+  							</ol>
+  
+  							<strong>Symbol list</strong>
+  							<table class="date-macro-list">
+  								<thead>
+  									<td>Symbol to insert</td>
+  									<td>Remarks</td>
+  									<td>Sample output</td>
+  								</thead>
+  								<tbody>
+  									<tr>
+  										<td>s</td>
+  										<td>seconds</td>
+  										<td>40</td>
+  									</tr>
+  									<tr>
+  										<td>m</td>
+  										<td>minutes</td>
+  										<td>56</td>
+  									</tr>
+  									<tr>
+  										<td>hh</td>
+  										<td>hour (in 24 hour format)</td>
+  										<td>23</td>
+  									</tr>
+  									<tr>
+  										<td>h</td>
+  										<td>hour (in 12 hour format)</td>
+  										<td>11</td>
+  									</tr>
+  									<tr>
+  										<td>a</td>
+  										<td>am or pm, as per time</td>
+  										<td>am</td>
+  									</tr>
+  									<tr>
+  										<td>Do</td>
+  										<td>date with suffix</td>
+  										<td>14th</td>
+  									</tr>
+  									<tr>
+  										<td>D</td>
+  										<td>date</td>
+  										<td>14</td>
+  									</tr>
+  									<tr>
+  										<td>dddd</td>
+  										<td>day of the week</td>
+  										<td>Sunday</td>
+  									</tr>
+  									<tr>
+  										<td>ddd</td>
+  										<td>day of the week (short name)</td>
+  										<td>Sun</td>
+  									</tr>
+  									<tr>
+  										<td>MMMM</td>
+  										<td>full month name</td>
+  										<td>March</td>
+  									</tr>
+  									<tr>
+  										<td>MMM</td>
+  										<td>short month name</td>
+  										<td>Mar</td>
+  									</tr>
+  									<tr>
+  										<td>MM</td>
+  										<td>numeric month</td>
+  										<td>03</td>
+  									</tr>
+  									<tr>
+  										<td>YYYY</td>
+  										<td>year (four digit)</td>
+  										<td>2015</td>
+  									</tr>
+  									<tr>
+  										<td>YY</td>
+  										<td>year (two digit)</td>
+  										<td>15</td>
+  									</tr>
+  									<tr>
+  										<td>ZZ</td>
+  										<td>complete timezone</td>
+  										<td>India Standard Time</td>
+  									</tr>
+  									<tr>
+  										<td>Z</td>
+  										<td>abbreviated timezone</td>
+  										<td>IST</td>
+  									</tr>
+  									<tr>
+  										<td>z</td>
+  										<td>timezone offset wrt GMT</td>
+  										<td>+0530</td>
+  									</tr>
+  									<tr>
+  										<td>J</td>
+  										<td>get current day number</td>
+  										<td>166 (15th june)</td>
+  									</tr>
+  									<tr>
+  										<td>date</td>
+  										<td>complete current date</td>
+  										<td>March 05, 2015</td>
+  									</tr>
+  									<tr>
+  										<td>time</td>
+  										<td>complete current time (24hour format)</td>
+  										<td>01:29:55</td>
+  									</tr>
+  								</tbody>
+  							</table>
+  						</dd>
+  
+  						<dt>What is Date/Time arithmetic?</dt>
+  						<dd>
+  							<p>Date and Time arithmetic lets you move forward or backward in time in the Date/Time
+  								macros. It is of
+  								<b>two types:</b>
+  							</p>
+  							<p>
+  								<b>1. Relative: </b>All the macro symbols inside a parentheses perform calculations
+  								relative to the same date,
+  								and
+  								have a single shared copy of the date. So, calculations on one symbol change that
+  								same shared copy, and could
+  								affect
+  								result of another symbol. Like, on forwarding a date by 10 days (using
+  								<span class="code">[[%d(D+10)]]</span>), if the date is caused to move into another month, then
+  								<i>that changed month</i> would be used as the current month for any calculation on
+  								any month symbol further
+  								inside
+  								the parentheses. Similar rules apply for changing minutes (causing the hour to
+  								change), etc.
+  								<br> To indicate relative calculation, add a
+  								<span class="code">!</span> at the start, like this:
+  								<span class="code">[[%d(! D+5 M-5 ....)]]</span>
+  							</p>
+  							<p>
+  								<b>2. Independent (Default): </b>All the macro symbols while performing calculations
+  								are independent of one
+  								another.
+  								So, if forwarding a date by 10 days (using
+  								<span class="code">[[D+10]]</span>), causes the date to move into another month, still,
+  								<i>that changed month</i>
+  								<b>
+  									<i> would not be used as the current month</i>
+  								</b> for any calculation on any symbol further inside the parentheses. All the
+  								symbols would have their
+  								<i>own separate copy</i> of the date.</p>
+  							<p>
+  								<b>Usage: </b>After a date/time macro symbol, you have to place a "+" or "-" sign
+  								(indicating whether to move
+  								forward
+  								or backward respectively), followed by a number, which would indicate the amount by
+  								 which to move forward or
+  								backward.
+  								No white space or any other character should be used between the symbol, sign, and
+  								 number. So,
+  								<span class="notranslate"><span class="code">[[%d(Do+5 M-10)]]</span></span> is
+  								valid, while
+  								<span class="notranslate"><span class="code">[[%d(Do - 5 M- 10)]]</span></span> is
+  								invalid.</p>
+  							<p>
+  								<b>Evaluation</b> of these symbols is from left to right, and the symbol that
+  								appears first (at the top) in
+  								the
+  								symbols list, is evaluated first.</p>
+  							<p>
+  								<b>Example: </b>Consider this date/time macro:
+  								<span class="notranslate"><span class="code">[[%d(YYYY:MM:D)]]</span></span>. If you
+  								want to move 10 days forward and 5 months backward, you
+  								could
+  								write:
+  								<span class="notranslate"><span class="code">[[%d(YYYY:MM-5:D+10)]]</span></span>
+  								This was independent calculation. If you want it to be
+  								relative,
+  								use
+  								<span class="notranslate"><span class="code">[[%d(!YYYY:MM-5:D+10)]]</span></span>
+  								(with that
+  								<span class="code">!</span>)</p>
+  							<p>
+  								<b>Limitation</b>: The <span class="notranslate">"date"</span> and <span class="notranslate">"time"</span> symbols do not support date and time
+  								arithmetic (I might fix this in
+  								future).</p>
+  						</dd>
+  
+  						<dt>How do I use Clipboard Paste Macro?</dt>
+  						<dd>
+  							Clipboard Paste Macro is used to paste the contents of your clipboard (that data which
+  							 you have earlier copied
+  							or cut) into
+  							the snippet body.
+  							<br> To use it, you only have to place <span class="notranslate">"[[%p]]"</span>
+  							(without quotes) in the snippet body, at the location where you
+  							want
+  							your clipboard data to be pasted.
+  						</dd>
+  
+  						<dt>How do I use Browser URL macro?</dt>
+  						<dd>
+  							The Browser URL macro is used to insert the URL (or parts of the URL) of the current
+  							webpage into the snippet.
+  							Assuming the
+  							URL to be "https://www.website.com/path1/path2/path3#hash?a=b&c=d", these are the sample
+  							outputs:
+  							<table class="browser-macro-list">
+  								<thead>
+  									<td>Macro code</td>
+  									<td>Remarks</td>
+  									<td>Sample output</td>
+  								</thead>
+  								<tbody>
+  									<tr>
+  										<td>(empty)</td>
+  										<td>Full URL excluding protocol and www</td>
+  										<td>website.com/path1/path2/path3</td>
+  									</tr>
+  									<tr>
+  										<td>(any number)</td>
+  										<td>Path till which URL is output</td>
+  										<td>website.com/path1/path2 (for n = 2)</td>
+  									</tr>
+  									<tr>
+  										<td>(p)</td>
+  										<td>Includes the protocol in the output</td>
+  										<td>https://website.com/path1/path2/path3</td>
+  									</tr>
+  									<tr>
+  										<td>(w)</td>
+  										<td>Includes the www in the output</td>
+  										<td>www.website.com/path1/path2/path3</td>
+  									</tr>
+  									<tr>
+  										<td>(q1)</td>
+  										<td>Number of query parameters to be included</td>
+  										<td>www.website.com/path1/path2/path3?a=b</td>
+  									</tr>
+  									<tr>
+  										<td>(h)</td>
+  										<td>Includes the location hash in the output</td>
+  										<td>website.com/path1/path2/path3#hash</td>
+  									</tr>
+  									<tr>
+  										<td>{p}</td>
+  										<td>Outputs only the protocol</td>
+  										<td>https</td>
+  									</tr>
+  									<tr>
+  										<td>{3}</td>
+  										<td>Outputs only the n-th path of the URL</td>
+  										<td>path3</td>
+  									</tr>
+  									<tr>
+  										<td>{q2}</td>
+  										<td>Outputs only the 2nd query parameter of the URL</td>
+  										<td>path3</td>
+  									</tr>
+  									<tr>
+  										<td>{h}</td>
+  										<td>Outputs only the location hash</td>
+  										<td>hash</td>
+  									</tr>
+  								</tbody>
+  							</table>
+  						</dd>
+  
+  						<dt>What are Variables?</dt>
+  						<dd>
+  							<p>Variables are used to insert dynamic values at any time while typing. They are
+  								inbuilt and cannot be created
+  								by
+  								you. Of course, I would love a recommendation from you for a new variable! (email:
+  								dotexpander@doctordurant.com)</p>
+  							<p>
+  								<b>Usage:</b>
+  							</p>
+  							<ol class="steps">
+  								<li>Type `[[`, the other pair of braces `]]` would auto-complete.</li>
+  								<li>Type the variable name inside them, and press `=`.</li>
+  								<li>This entire `[[...=]]` would be replaced by the dynamic values of these
+  									variables.</li>
+  							</ol>
+  							<p>The following Variables (case-insensitive) are supported:</p>
+  							<table>
+  								<tr>
+  									<td>Variable name</td>
+  									<td>Value it holds</td>
+  									<td>Sample output</td>
+  								</tr>
+  								<tr>
+  									<td><span class="notranslate">date</span></td>
+  									<td>current, complete date</td>
+  									<td>March 05, 2015</td>
+  								</tr>
+  								<tr>
+  									<td><span class="notranslate">time</span></td>
+  									<td>current, complete time</td>
+  									<td>01:29:55</td>
+  								</tr>
+  								<tr>
+  									<td><span class="notranslate">version</span></td>
+  									<td>current browser version</td>
+  									<td>Chrome 43.0.2357.130</td>
+  								</tr>
+  							</table>
+  						</dd>
+  
+  						<dt>How are Variables different from Snippets?</dt>
+  						<dd>Variables are more useful when you need to retrieve system-related dynamic values. Like
+  							the version of the
+  							browser,
+  							which would need to be manually entered into a snippet. A Variable would get it
+  							automatically.</dd>
+  					</dl>
+  				</div>
+  
+  				<div class="box">
+  					<h2>Troubleshoot</h2>
+  					<i>Try reloading the page before anything else. That fixes most issues.</i>
+  
+  					<dl>
+  						<dt>DotExpander works improperly/does not work on XYZ site</dt>
+  						<dd>
+  							<ol class="steps">
+  								<li>Some sites like Google Docs, Quora, Facebook, etc. insert their custom textboxes
+  									 which makes it difficult for DotExpander to recognize the caret position and perform relevant functions.
+  									<br> Unfortunately, there is no workaround for this problem and you can only
+  									<b>block the site in
+  										<a target="_blank" href="options.html#settings">Settings</a>
+  									</b> for the time being.</li>
+  								<li>Some sites like Evernote insert their own custom &lt;iframe&gt;s in the page which may require a
+  									<b>custom, manual check</b>
+  									as it difficult to get DotExpander to work with &lt;iframe&gt;s. Please mail me at
+  									dotexpander@doctordurant.com if you have come across any such site and I will try my best to fix DotExpander for that site.</li>
+  								<li>Code/programming editors like Codemirror, Ace, etc. used in variety of sites are
+  									not supported since they
+  									have
+  									their own custom features and prevent DotExpander from working properly.</li>
+  								<li>In case of snippets, make sure your caret(cursor) is placed just after the
+  									snippet name. Example: If your
+  									snippet
+  									name is "abcd", place your caret after "d"</li>
+  								<li>Check that the site is not blocked in
+  									<a target="_blank" href="options.html">Settings</a>.</li>
+  								<li>If nothing works,
+  									<b>take a backup of your data and reinstall DotExpander</b>. Restore your data back
+  									and try again.</li>
+  								<li>If it
+  									<em>still</em> does not work, contact us at james@doctordurant.com</li>
+  							</ol>
+  						</dd>
+  						<dt>Sync storage does not work</dt>
+  						<dd>
+  							<ol class="steps">
+  								<li>Make sure that you're signed into Chrome. The tab on the upper-right corner of
+  									the title bar should
+  									<b>not</b> read "Guest".</li>
+  								<li>Data can be synced across one Google account only. Both your Chrome browsers
+  									must be signed in with the
+  									<b>same Google account</b>.</li>
+  								<li>Click the two sync buttons in the right order - use the first button when you're
+  									setting up sync for the
+  									first
+  									time; the second button when you already have sync set up on another PC.</li>
+  								<li>In case you use multiple email accounts, make sure you're not confusing the ones
+  									which you use to sign-in
+  									to
+  									Chrome.
+  								</li>
+  								<li>If it
+  									<i>still</i> doesn't work, contact us at james@doctordurant.com</li>
+  							</ol>
+  						</dd>
+  					</dl>
+  				</div>
+  			</div>
+  			<div id="about">
+  				<h1>About</h1>
+  				<div class="team-info box">
+  					<p class="heading">The Team - DoctorDuRant LLC</p>
+  					<div class="profile">
+  						<p class="name">James M DuRant III MD MBA</p>
+  						<p class="roles">Development|Programming|Design|QA</p>
+  						<div class="info">
+  							I am a physician and software developer with a passion for creating tools that improve efficiency and workflow.
+  						</div>
+  						<div class="social-links">
+  							<a href="https://github.com/jmdurant">GitHub</a>
+  						</div>
+  					</div>
+  				</div>
+  				<div class="box">
+  					<p class="heading">Attribution</p>
+  					<div class="content">
+  						<p>DotExpander is based on ProKeys, originally created by Gaurang Tandon. The original project has been modified and enhanced with permission.</p>
+  						<p>Original Project:</p>
+  						<ul>
+  							<li>ProKeys by Gaurang Tandon</li>
+  							<li><a href="https://github.com/GaurangTandon/ProKeys">Original GitHub Repository</a></li>
+  						</ul>
+  						<p>Modifications and enhancements by DoctorDuRant LLC include:</p>
+  						<ul>
+  							<li>Updated to Manifest V3 compatibility</li>
+  							<li>Enhanced rich text editor support</li>
+  							<li>Improved storage management</li>
+  							<li>Modern UI/UX improvements</li>
+  						</ul>
+  					</div>
+  				</div>
+
+  				<div class="box">
+  					<p class="heading">Enjoy Increased Productivity!</p>
+  					<div class="content">
+  						<p class="heading2">Share DotExpander with your friends!</p>
+  						
+  						<a class="fb-share" href="http://www.facebook.com/sharer.php?u=https://chrome.google.com/webstore/detail/dotexpander/ekfnbpgmmeahnnlpjibofkobpdkifapn&t=Increase%20your%20efficiency%3B%20write%20less,%20do%20more!%20Install%20DotExpander%20now,%20and%20impress%20everyone!%20%20https://chrome.google.com/webstore/detail/dotexpander/ekfnbpgmmeahnnlpjibofkobpdkifapn" target="_blank"></a>
+
+  						
+  						<a target="_blank" class="tw-share" href="http://twitter.com/intent/tweet?text=Increase%20your%20efficiency%3B%20write%20less,%20do%20more!%20Install%20DotExpander%20now,%20and%20impress%20everyone!%20%23chrome-extension%20%23chrome&url=https://chrome.google.com/webstore/detail/dotexpander/ekfnbpgmmeahnnlpjibofkobpdkifapn"></a>
+
+  						<p class="heading2">Give feedback!</p>
+  						<div class="buttons">
+  							<a href="https://chrome.google.com/webstore/detail/dotexpander/ekfnbpgmmeahnnlpjibofkobpdkifapn/reviews" target="_blank">Leave
+  								a Review</a>
+  							<a href="https://chrome.google.com/webstore/detail/dotexpander/ekfnbpgmmeahnnlpjibofkobpdkifapn/support" target="_blank">Request
+  								a feature</a>
+  							<a href="https://docs.google.com/forms/d/1DcwQB5vnNCH0pP_Y-wVvOF6gsI0gaXGPPngctb4tCdA/viewform?usp=send_form" target="_blank">Anonymous
+  								Feedback
+  							</a>
+  						</div>
+  						<p class="heading2">Found a bug?</p>
+  						Contact with relevant information:
+  						<strong>james@doctordurant.com</strong> Please check
+  						<a target="_blank" href="options.html#help">the troubleshooting guide</a> and
+  						<a href="https://docs.google.com/document/d/1_MHKm1jtpJCWgksfbUdufExRFlF81S-IuTz1Czu7gOI/edit?usp=sharing">the
+  							known
+  							bugs list</a> before reporting.
+  					</div>
+  				</div>
+
+  				<div class="box">
+  					<p class="heading">Disclaimer</p>
+  					<div class="content">
+  						<ol class="steps">
+  							<li>Every effort has been made to avoid bugs in this extension. The developers are not
+  								liable for any loss or
+  								corruption
+  								of the users' data due to glitches/misuse.</li>
+  							<li>Information regarding user data storage, its handling, etc. can be found in the
+  								<a href="https://github.com/jmdurant/blob/master/PRIVACY_POLICY.md">privacy
+  									policy</a>.</li>
+  							<li>User feedback at james@doctordurant.com (regarding bugs, security concerns, help
+  								using DotExpander, etc.) is
+  								encouraged.</li>
+  						</ol>
+  					</div>
+  				</div>
+  			</div>
+  		</div>
+
+  		<footer>
+  			Version:
+  			<span class="version"></span> - James M DuRant III MD MBA &copy; 2025
+  			<br> Check out the
+  			<a href="https://github.com/jmdurant/dotexpander/releases">change log</a> and
+  			<a href="https://github.com/jmdurant/dotexpander">source code on GitHub!</a>
+  			<br>
+  			<br>
+  		</footer>
+  	</main>
+</body>
+
+</html>

@@ -1,0 +1,61 @@
+/* Quill Toolbar Customization */
+.ql-snow.ql-toolbar,
+.ql-snow .ql-toolbar {
+    padding: 4px !important;
+    border: 1px solid #ccc !important;
+    display: flex !important;
+    flex-wrap: wrap !important;
+    gap: 4px !important;
+    align-items: center !important;
+    justify-content: flex-start !important;
+    width: auto !important;
+}
+
+.ql-snow.ql-toolbar .ql-formats,
+.ql-snow .ql-toolbar .ql-formats {
+    margin: 0 !important;
+    padding: 0 !important;
+    display: flex !important;
+    align-items: center !important;
+    gap: 2px !important;
+    float: none !important;
+    vertical-align: middle !important;
+}
+
+.ql-snow.ql-toolbar button,
+.ql-snow .ql-toolbar button {
+    float: none !important;
+    padding: 3px 5px !important;
+    width: 28px !important;
+    height: 24px !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    margin: 0 !important;
+}
+
+.ql-snow .ql-picker {
+    float: none !important;
+    height: 24px !important;
+    display: inline-flex !important;
+    align-items: center !important;
+}
+
+/* Specific picker widths */
+.ql-snow .ql-picker.ql-size,
+.ql-snow .ql-picker.ql-header,
+.ql-snow .ql-picker.ql-font {
+    width: 98px !important;
+}
+
+/* Color picker width */
+.ql-snow .ql-color-picker,
+.ql-snow .ql-icon-picker {
+    width: 28px !important;
+}
+
+/* Ensure picker options appear properly */
+.ql-snow .ql-picker-options {
+    min-width: max-content !important;
+}
+  

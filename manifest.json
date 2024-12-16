@@ -1,0 +1,55 @@
+{
+    "manifest_version":  3,
+    "name":  "DotExpander",
+    "description":  "Save time and effort in emails, etc. with DotExpander! Define snippets, do math in browser, auto complete braces, and much more.",
+    "version":  "1.0.0",
+    "author":  "DoctorDuRant LLC",
+    "action":  {
+                   "default_icon":  "imgs/dotexpander-16.png"
+               },
+    "background":  {
+                       "service_worker":  "js/service-worker.js",
+                       "type":  "module"
+                   },
+    "content_scripts":  [
+                            {
+                                "js":  [
+                                           "js/detector.js"
+                                       ],
+                                "css":  [
+                                            "css/theme.css",
+                                            "css/blockSiteModal.css",
+                                            "css/suggestions.css",
+                                            "css/dotexpander-table.css"
+                                        ],
+                                "matches":  [
+                                                "<all_urls>"
+                                            ],
+                                "run_at":  "document_start",
+                                "all_frames":  true
+                            }
+                        ],
+    "permissions":  [
+                        "tabs",
+                        "storage",
+                        "contextMenus",
+                        "clipboardRead",
+                        "clipboardWrite"
+                    ],
+    "host_permissions":  [
+                             "<all_urls>"
+                         ],
+    "omnibox":  {
+                    "keyword":  "pk"
+                },
+    "icons":  {
+                  "16":  "imgs/dotexpander-16.png",
+                  "32":  "imgs/dotexpander-32.png",
+                  "48":  "imgs/dotexpander-48.png",
+                  "128":  "imgs/dotexpander-128.png"
+              },
+    "options_page":  "html/options.html",
+    "content_security_policy":  {
+                                    "extension_pages":  "script-src \u0027self\u0027; object-src \u0027self\u0027"
+                                }
+}

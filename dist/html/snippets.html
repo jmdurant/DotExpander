@@ -1,0 +1,218 @@
+<h1>Snippets</h1>
+<p class="storageBytes">
+    <span class="currentBytes"></span> used out of 
+    <span class="bytesAvailable"></span> total storage
+</p>
+
+<div class="export-buttons">
+    <button class="export">Export/Backup</button>
+    <button class="import">Import/Restore</button>
+    <button class="revisions">Past data versions</button>
+</div>
+
+<div class="panel panel_snippets show">
+    <div class="panel_top">
+        <div class="folder_path">
+            
+        </div>
+        <div class="add_new_snip_btn panel_btn" title="Add new snippet"></div>
+        <div class="add_new_folder_btn panel_btn" title="Add new folder"></div>
+        <div class="sort_btn panel_btn" title="Sort snippets"></div>
+        <div class="checkbox_btn panel_btn" title="Perform bulk action"></div>
+        <div class="search_btn panel_btn" title="Search snippets"></div>
+    </div>
+    <div class="panel_search sub_panel">
+        <input type="text" placeholder="Type search phrase">
+    </div>
+    <div class="panel_sort sub_panel">
+        <div class="sort-dir">
+            Sort direction:
+            <label>
+                <input type="radio" name="sort-dir" checked="checked">Ascending</label>
+            <label>
+                <input type="radio" name="sort-dir">Descending</label>
+        </div>
+        <div class="sort-type">
+            Sort by:
+            <label>
+                <input type="radio" name="sort-type" checked="checked">Name</label>
+            <label>
+                <input type="radio" name="sort-type">Date created</label>
+        </div>
+        <input type="button" value="Sort">
+    </div>
+    <div class="panel_bulk_action sub_panel">
+        <div class="selection_count">
+            Bulk Actions:
+            <span></span> selected
+            <input type="button" value="Select/Unselect all">
+        </div>
+        <div class="bulk_actions">
+            <input type="button" value="Move to folder">
+            <input type="button" value="Delete selected">
+        </div>
+        <div class="folderSelect">
+            <p>Select a folder and click "Move to folder" button again</p>
+            <div class="selectList">
+            </div>
+        </div>
+    </div>
+    <div class="panel_content">
+        
+    </div>
+</div>
+
+<div class="panel edit-panel panel_snip_edit">
+    <div class="panel_top">
+        <div class="header">
+            <span></span>
+        </div>
+        <div class="tick_btn panel_btn" title="Save snippet (Ctrl-Enter)"></div>
+        <div class="close_btn panel_btn" title="Close dialog (Esc)"></div>
+    </div>
+    <div class="panel_content">
+        <div class="name">
+            <p>
+                <b>Snippet Name:</b> abbreviation</p>
+            <input type="text" placeholder="Case-insensitive ('ABCD' and 'abcd' same)" tab-index="10">
+            <p class="error"></p>
+        </div>
+        <div class="body">
+            <p>
+                <b>Snippet Body:</b> to which snippet name expands
+                <br>
+                <br>
+                </p><div id="body-editor"></div>
+                <p class="error"></p>
+        </div>
+        <div class="folderSelect">
+            <p>
+                <b>Nested under/Move to folder:</b>
+            </p>
+            <div class="selectList">
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="panel edit-panel panel_folder_edit">
+    <div class="panel_top">
+        <div class="header">
+            <span></span>
+        </div>
+        <div class="tick_btn panel_btn" title="Save folder"></div>
+        <div class="close_btn panel_btn" title="Close dialog"></div>
+    </div>
+    <div class="panel_content">
+        <div class="name">
+            <p><b>Folder Name</b></p>
+            <input type="text" placeholder="Case-insensitive ('ABCD' and 'abcd' same)">
+            <p class="error"></p>
+        </div>
+        <div class="folderSelect">
+            <p><b>Nested under/Move to folder:</b></p>
+            <div class="selectList">
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="panel panel_popup export">
+    <div class="panel_top">
+        <div class="close_btn panel_btn" title="Close popup"></div>
+    </div>
+    <div class="panel_content">
+        <ol class="steps">
+            <li>
+                Choose use of exported data:
+                <br>
+                <label>
+                    <input type="radio" name="data_use" value="data" checked="checked">Backup data</label>
+                <label>
+                    <input type="radio" name="data_use" value="snippets">Backup only snippets</label>
+                <label>
+                    <input type="radio" name="data_use" value="print">Print snippets</label>
+            </li>
+            <li>
+                Download your data as a <a href="" download="" class="text-download">text file</a>, <a href="" download="" class="csv-download">your snippets as a csv</a> or, <br><br>
+                <span class="copy-data-to-clipboard-btn fake-anchor">Copy your data to clipboard.</span>
+            </li>
+        </ol>
+    </div>
+</div>
+
+<div class="panel panel_popup import">
+    <div class="panel_top">
+        <div class="close_btn panel_btn" title="Close popup"></div>
+    </div>
+    <div class="panel_content">
+        <ol class="steps">
+            <li>
+                Select folder under which new snippets will be imported:
+                <br>
+                <div class="selectList">
+                </div>
+                <label>
+                    <input type="checkbox" class="delete_existing">Delete existing snippets and folders
+                    in selected folder?</label>
+                <br>
+            </li>
+            <li class="preserve_checkboxes">
+                <label>
+                    <input type="checkbox" name="merge">Merge folders with the same name?</label>
+                <br>
+                <br> Duplicates should:
+                <br>
+                <label>
+                    <input type="radio" name="duplicate" value="existing">Not be imported</label>
+                <br>
+                <label>
+                    <input type="radio" name="duplicate" value="imported">Replace complement in
+                    destination.</label>
+                <br>
+                <label>
+                    <input type="radio" name="duplicate" checked="checked" value="both">Be kept</label>
+                <br>
+                <br>
+                <p class="caveat"></p>
+            </li>
+            <li>
+                <label for="file_input_elm" class="file_input"></label>
+                <input id="file_input_elm" type="file" accept=".txt, .doc, .docx, .rtf">
+                or, <span class="import-data-clipboard-btn fake-anchor">just press Ctrl-V to paste data
+                    from your clipboard.</span>
+            </li>
+            <li>
+                <label><input type="checkbox" class="csv-check-import">This is a CSV snippets
+                    import</label>
+            </li>
+        </ol>
+        <button class="restore">Restore</button>
+    </div>
+</div>
+
+<div class="panel panel_popup revisions">
+    <div class="panel_top">
+        <div class="close_btn panel_btn" title="Close popup"></div>
+    </div>
+    <div class="panel_content">
+        <p>Restore your data to an earlier version (to recover deleted snippets, etc.)</p>
+        <ol class="steps">
+            <li>
+                Choose available revision:
+                <br>
+                <select>
+                </select>
+            </li>
+            <li>
+                View or edit revision:
+                <br>
+                <textarea></textarea>
+            </li>
+            <li>
+                Click Restore button. Current snippet data will be stored as another new revision.
+            </li>
+        </ol>
+        <button class="restore">Restore</button>
+    </div>
+</div> 

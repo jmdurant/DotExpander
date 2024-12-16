@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Download Quill Files</title>
+    <script>
+        async function downloadFile(url, filename) {
+            const status = document.getElementById('status');
+            try {
+                status.textContent = `Downloading ${filename}...`;
+                const response = await fetch(url);
+                const text = await response.text();
+                const blob = new Blob([text], { type: 'text/plain' });
+                const a = document.createElement('a');
+                a.href = URL.createObjectURL(blob);
+                a.download = filename;
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                status.textContent = `Downloaded ${filename} to your Downloads folder`;
+            } catch (err) {
+                status.textContent = `Error downloading ${filename}: ${err.message}`;
+                console.error(err);
+            }
+        }
+
+        async function downloadAll() {
+            await downloadFile('https://cdn.jsdelivr.net/npm/quill@2/dist/quill.js', 'quill.js');
+            await downloadFile('https://cdn.jsdelivr.net/npm/quill-table-better@1/dist/quill-table-better.js', 'quill-table-better.js');
+            await downloadFile('https://cdn.jsdelivr.net/npm/quill@2/dist/quill.snow.css', 'quill.snow.css');
+            await downloadFile('https://cdn.jsdelivr.net/npm/quill-table-better@1/dist/quill-table-better.css', 'quill-table-better.css');
+        }
+    </script>
+</head>
+<body>
+    <h1>Download Quill Files</h1>
+    <button onclick="downloadAll()">Download All Files</button>
+    <div id="status"></div>
+    <h3>Files will download to:</h3>
+    <p>C:\Users\[YourUsername]\Downloads</p>
+    <h3>After downloading, move files to:</h3>
+    <ul>
+        <li>quill.js → js/quill.js</li>
+        <li>quill-table-better.js → js/quill-table-better.js</li>
+        <li>quill.snow.css → css/quill.snow.css</li>
+        <li>quill-table-better.css → css/quill-table-better.css</li>
+    </ul>
+</body>
+</html> 

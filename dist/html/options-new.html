@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script src="../js/page-flags.js"></script>
+    <meta charset="utf-8">
+    <link href="../css/reset.css" rel="stylesheet">
+    <link href="../css/theme.css" rel="stylesheet">
+    <link href="../css/options.css" rel="stylesheet">
+    <link href="../css/editor.min.css" rel="stylesheet">
+    <link href="../css/quill.snow.css" rel="stylesheet">
+    <link href="../css/quill-table-better.css" rel="stylesheet">
+    <script src="../js/quill.js"></script>
+    <script src="../js/quill-table-better.js"></script>
+    <script src="../js/detector.js"></script>
+    <script src="../js/options.js"></script>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+</head>
+<body>
+    <div class="sidebar">
+        <div class="logo">
+            <a target="_blank" href="https://chrome.google.com/webstore/detail/dotexpander/ekfnbpgmmeahnnlpjibofkobpdkifapn"></a>
+        </div>
+        <div class="buttons">
+            <button data-divid="snippets" data-section="snippets.html">Snippets</button>
+            <button data-divid="settings" data-section="settings.html">Settings</button>
+            <button data-divid="help" data-section="help.html">Help</button>
+            <button data-divid="about" data-section="about.html">About</button>
+        </div>
+    </div>
+
+    <main class="wrapper">
+        <div class="verticalLine"></div>
+        <div id="faded"></div>
+
+        
+        <div id="content">
+            <div id="snippets"></div>
+            <div id="settings"></div>
+            <div id="help"></div>
+            <div id="about"></div>
+        </div>
+
+        <footer>
+            Version: <span class="version"></span> - James M DuRant III MD MBA &copy; 2025
+            <br> Check out the
+            <a href="https://github.com/jmdurant/dotexpander/releases">change log</a> and
+            <a href="https://github.com/jmdurant/dotexpander">source code on GitHub!</a>
+            <br><br>
+        </footer>
+    </main>
+
+    
+    <div class="change-log box large-box" style="display: none;">
+        
+    </div>
+
+    <div class="no-db-error box large-box" style="display: none;">
+        
+    </div>
+
+    <script>
+        // This will handle dynamic section loading
+        document.addEventListener('DOMContentLoaded', function() {
+            const contentDiv = document.getElementById('content');
+            const buttons = document.querySelectorAll('.sidebar .buttons button');
+            
+            async function loadSection(sectionFile) {
+                try {
+                    const response = await fetch(`sections/${sectionFile}`);
+                    if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+                    const content = await response.text();
+                    return content;
+                } catch (error) {
+                    console.error('Error loading section:', error);
+                    return '<p>Error loading section content.</p>';
+                }
+            }
+
+            function showSection(divId, content) {
+                // Hide all sections
+                document.querySelectorAll('#content > div').forEach(div => {
+                    div.style.display = 'none';
+                });
+
+                // Show selected section
+                const sectionDiv = document.getElementById(divId);
+                if (sectionDiv) {
+                    sectionDiv.style.display = 'block';
+                    sectionDiv.innerHTML = content;
+                }
+            }
+
+            // Handle navigation clicks
+            buttons.forEach(button => {
+                button.addEventListener('click', async function() {
+                    const divId = this.dataset.divid;
+                    const sectionFile = this.dataset.section;
+                    
+                    // Update button states
+                    buttons.forEach(btn => btn.classList.remove('selected'));
+                    this.classList.add('selected');
+
+                    // Load and show section content
+                    const content = await loadSection(sectionFile);
+                    showSection(divId, content);
+                });
+            });
+
+            // Load default section (settings)
+            const defaultButton = document.querySelector('[data-divid="settings"]');
+            if (defaultButton) defaultButton.click();
+        });
+    </script>
+</body>
+</html> 

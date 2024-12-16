@@ -1,0 +1,125 @@
+<h1>Settings</h1>
+<div class="box hotkey">
+    <p class="heading">Current hotkey:
+        <span class="hotkey_display"></span>
+    </p>
+    <div class="content">
+        <textarea class="hotkey_listener"></textarea>
+        <button class="change_hotkey">Change hotkey</button>
+        <p class="info">
+            Pressing the hotkey immediately expands the snippet present before the cursor. A hotkey can
+            be composed of any
+            button on
+            the keyboard (optionally, in combination with Shift/Ctrl/Alt)
+        </p>
+    </div>
+</div>
+
+<div class="box storageMode">
+    <p class="heading">Storage Mode</p>
+    <div class="content">
+        <div class="container">
+            
+            <div class="current">
+                <h3>Current data storage mode:</h3>
+                <p></p>
+            </div>
+            <div class="transfer">
+                <h3>Set data storage mode to:</h3>
+                <p></p>
+            </div>
+        </div>
+        <p class="warning">You
+            <b>MUST TAKE A BACKUP</b> before chaging storage mode.</p>
+    </div>
+</div>
+
+<div class="box">
+    <p class="heading">Auto-Insert character pairs</p>
+    <div class="content">
+        On typing one of the letters below (say `(`), its complement (`)`), is automatically inserted
+        after it, and the
+        caret (cursor)
+        in positioned between both of them
+        <table class="auto_insert"></table>
+
+        <br>
+        <label>
+            <input type="checkbox" name="wrapSelectionAutoInsert"> Automatically wrap selected text in
+            the auto-insert
+            character
+            pair ("selection" would become "(selection)")</label>
+    </div>
+</div>
+
+<div class="box tabkey">
+    <div class="content">
+        <label>
+            <input type="checkbox" id="tabKey"> Should [Tab] key insert four spaces instead of its
+            default function?</label>
+    </div>
+</div>
+
+<div class="box ctxEnable">
+    <div class="content">
+        <label>
+            <input type="checkbox" id="ctxEnable"> Enable DotExpander in the context menu?</label>
+    </div>
+</div>
+
+<div class="box dot-phrases">
+    <div class="content">
+        <label>
+            <input type="checkbox" id="dotPhrasesEnabled"> Enable dot phrases?</label>
+        <p class="info">When enabled, you can type a dot (.) followed by a snippet name to expand it. For example, typing ".table" and pressing space will expand the "table" snippet.</p>
+    </div>
+</div>
+
+<div class="box dark-mode">
+    <p class="heading">Theme Settings</p>
+    <div class="content">
+        <label>
+            <input type="checkbox" id="darkMode"> Enable dark mode</label>
+        <p class="info">Switch between light and dark color themes for the extension interface.</p>
+    </div>
+</div>
+
+<div class="box snippet_match_whole_word">
+    <div class="content">
+        <label>
+            <input type="checkbox"> <b>Snippet Delimiters</b> - Snippet name should match with whole
+            word instead of a part?
+            <br> ('pet' snip name should match in 'I have a pet' but not in 'I have a carpet')</label>
+        <div class="delimiter_list">
+            <br> Add or remove a delimiter (single character), hit Enter to Save
+            <br>
+            <input type="text">
+            <button>Reset to default list</button>
+        </div>
+    </div>
+</div>
+
+<div class="box search-provider">
+    <div class="content">
+        Enter the search provider for the omnibox, that will be used when you enter a search query. Hit
+        Enter to save.
+        <br> Place the word "SEARCH" where the search text will be replaced.
+        <br>
+        <input type="text" placeholder="URL">
+    </div>
+</div>
+
+<div class="box blocked-sites">
+    <p class="heading">Block Sites</p>DotExpander will not work on the following sites:
+    <br>
+    <div class="content">
+        <p>
+            Add website to block (for example: `xyz.abcd.com`, `xyz.com/path`), each new website should
+            be separated by a
+            newline, hit
+            Ctrl-Enter to Save
+        </p>
+        <br>
+        <textarea placeholder="Enter addresses here"></textarea>
+    </div>
+</div> 
