@@ -45,7 +45,7 @@ DotExpander is a powerful Chrome extension that enhances your typing efficiency 
 
 ## Installation
 
-Install DotExpander from the [Chrome Web Store](https://chrome.google.com/webstore/detail/dotexpander/ekfnbpgmmeahnnlpjibofkobpdkifapn)
+Coming soon to the Chrome Web Store!
 
 ## Usage Examples
 
@@ -70,8 +70,8 @@ Install DotExpander from the [Chrome Web Store](https://chrome.google.com/websto
 
 For issues, feature requests, or general feedback:
 - Email: james@doctordurant.com
-- [Submit a Review](https://chrome.google.com/webstore/detail/dotexpander/ekfnbpgmmeahnnlpjibofkobpdkifapn/reviews)
-- [Report Issues](https://chrome.google.com/webstore/detail/dotexpander/ekfnbpgmmeahnnlpjibofkobpdkifapn/support)
+- Submit a review (Chrome Web Store link coming soon)
+- Report issues (Chrome Web Store link coming soon)
 
 ## Attribution
 
